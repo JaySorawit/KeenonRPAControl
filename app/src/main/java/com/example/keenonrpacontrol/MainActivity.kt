@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
             Log.d("KtorServer", "Starting Ktor server...")
             embeddedServer(Netty, port = 8080) {
                 routing {
+                    get("/") {
+                        call.respondText("Hello, Ktor!", ContentType.Text.Plain)
+                    }
                     get("/tap") {
                         val x = call.parameters["x"]?.toIntOrNull() ?: 500
                         val y = call.parameters["y"]?.toIntOrNull() ?: 500
