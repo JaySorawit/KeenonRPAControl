@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.keenonrpacontrol"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -29,28 +29,41 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
+    // Packaging options to exclude unwanted META-INF files
     packaging {
         resources {
+            excludes += "/META-INF/INDEX.LIST" // Exclude INDEX.LIST files
+            excludes += "/META-INF/io.netty.versions.properties" // Exclude the conflicting Netty properties
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
 
 dependencies {
-
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("io.ktor:ktor-client-core:1.6.0")
+    implementation("io.ktor:ktor-client-android:1.6.0")
+    implementation("io.ktor:ktor-server-core:1.6.0")
+    implementation("io.ktor:ktor-server-netty:1.6.0")
+    implementation("io.ktor:ktor-server-host-common:1.6.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
